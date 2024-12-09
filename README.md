@@ -19,3 +19,9 @@ sudo apt install alacritty
 ```bash
 sudo apt install stow
 ```
+
+### Nvim
+
+```bash
+sudo apt install nvim
+```

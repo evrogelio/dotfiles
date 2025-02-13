@@ -35,3 +35,6 @@ decorations = "None"
 
 [cursor]
 style = {shape = "Beam", blinking= "on" }
+
+[selection]
+save_to_clipboard = true

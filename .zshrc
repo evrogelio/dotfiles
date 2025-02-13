@@ -14,7 +14,7 @@ fi
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
 export PATH="/home/rogelio/.local/bin:$PATH"
-export PATH="$PATH:/opt/nvim-linux64/bin"
+export PATH="/home/rogelio/.bun/bin:$PATH"
 export PATH="$PATH:/opt/nvim-linux64/bin"
 export EDITOR="$(which nvim)"
 

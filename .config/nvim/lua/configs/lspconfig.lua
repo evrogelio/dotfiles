@@ -34,7 +34,7 @@ local capabilities = nvlsp.capabilities
 --------------------------------------------------------------------------------
 -- 1. HTML & CSS LSP
 --------------------------------------------------------------------------------
-local servers = { "html", "cssls" }
+local servers = { "cssls" }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup({
     on_attach = on_attach,
@@ -42,6 +42,15 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities,
   })
 end
+
+lspconfig.html.setup({
+  filetypes = { "html", "eruby.html", "eruby" },  -- or whichever you need
+  init_options = {
+    -- You can specify HTML LSP features here, e.g. embeddedLanguages, etc.
+    provideFormatter = true,
+  },
+  settings = {},
+})
 
 --------------------------------------------------------------------------------
 -- 2. TypeScript LSP (named "ts_ls" in your setup)
@@ -107,3 +116,64 @@ lspconfig.tailwindcss.setup({
   },
 })
 
+
+--------------------------------------------------------------------------------
+-- 5. Ruby LSP
+--------------------------------------------------------------------------------
+lspconfig.ruby_lsp.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+
+  -- The main filetype is "ruby", but you may also add erb, etc. if you want partial coverage
+  filetypes = { "ruby" },
+
+  -- Some rails projects may have Ruby code in subfolders. This helps find the project root.
+  root_dir = lspconfig.util.root_pattern("Gemfile", ".git"),
+
+  -- Ruby LSP has a set of features; you can enable or disable them here:
+  init_options = {
+    enabledFeatures = {
+      "codeActions",
+      "diagnostics",
+      "documentHighlights",
+      "documentSymbols",
+      "formatting",
+      "inlayHint",
+      "semanticHighlighting",
+      "foldingRange",
+      "selectionRange",
+      "rename",
+      "codeLens",
+      "workspaceSymbol",
+    },
+  },
+}
+
+lspconfig.emmet_ls.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+  -- You can specify filetypes or let it default
+  filetypes = {
+    "html",
+    "css",
+    "sass",
+    "scss",
+    "less",
+    "javascriptreact",
+    "typescriptreact",
+    "vue",
+    "svelte",    -- if you want Emmet in Svelte
+    "php",       -- if you like Emmet for Blade templates
+    "eruby",     -- if you like Emmet for ERB
+    -- etc.
+  },
+  init_options = {
+    -- Typical Emmet configuration options
+    html = {
+      options = {
+        -- For example, override default Emmet settings here
+        ["bem.enabled"] = true,
+      },
+    },
+  },
+})

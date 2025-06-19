@@ -1,7 +1,3 @@
-import = [
-	'~/.config/alacritty/themes/themes/catppuccin_mocha.toml'
-]
-
 [env]
 TERM = "xterm-256color"
 
@@ -38,3 +34,8 @@ style = {shape = "Beam", blinking= "on" }
 
 [selection]
 save_to_clipboard = true
+
+[general]
+import = [
+	'~/.config/alacritty/themes/themes/catppuccin_latte.toml'
+]

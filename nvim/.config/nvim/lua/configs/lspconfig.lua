@@ -59,10 +59,7 @@ lspconfig.ts_ls.setup({
   on_attach = on_attach,
   on_init = on_init,
   capabilities = capabilities,
-  cmd = { "bun", "run", "--bun", "typescript-language-server", "--stdio" },
-  -- Or just {"typescript-language-server", "--stdio"} if installed globally
-  filetypes = { "typescript", "typescriptreact", "typescript.tsx", "javascript", "javascriptreact", "javascript.jsx" },
-  root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", ".git"),
+  root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json"),
 })
 
 --------------------------------------------------------------------------------
@@ -72,7 +69,7 @@ lspconfig.svelte.setup({
   on_attach = on_attach,
   on_init = on_init,
   capabilities = capabilities,
-  cmd = { "bun", "run", "--bun", "svelteserver", "--stdio" },
+  cmd = { "svelteserver", "--stdio" },
   settings = {
     svelte = {
       plugin = {
@@ -97,16 +94,30 @@ lspconfig.tailwindcss.setup({
   on_attach = on_attach,
   on_init = on_init,
   capabilities = capabilities,
-  cmd = { "bun", "run", "--bun", "tailwindcss-language-server", "--stdio" },
-  -- Or just {"tailwindcss-language-server", "--stdio"}
+  cmd = { "tailwindcss-language-server", "--stdio" },
+  root_dir = lspconfig.util.root_pattern('tailwind.config.js', 'tailwind.config.ts', 'postcss.config.js', 'package.json', '.git'),
+  filetypes = {
+    "html",
+    "svelte",
+    "javascript",
+    "typescript",
+    "javascriptreact",
+    "typescriptreact",
+    "vue",
+    "php",
+    "css"
+  },
+  init_options = {
+    userLanguages = {
+      svelte = "html"
+    }
+  },
   settings = {
     tailwindCSS = {
       includeLanguages = {
-        -- Tell Tailwind to treat Svelte as HTML for class detection
         svelte = "html",
       },
       experimental = {
-        -- If you use "class:..." directives in Svelte, add them here
         classRegex = {
           { "class:([%w_%-]+)", "'([^']*)'" },
           { 'class:([%w_%-]+)="([^"]*)"', "class=\"([^\"]*)\"" },
